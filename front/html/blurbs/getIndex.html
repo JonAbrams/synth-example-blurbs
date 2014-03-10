@@ -1,0 +1,14 @@
+<h1>Be heard, add a blurb…</h1>
+<textarea class="new-blurb"
+  ng-model="message"
+  placeholder="Write anything… Max 140 characters."
+></textarea>
+<button ng-click="submit()">submit</button>
+
+<ul class="blurb-list">
+  <li ng-repeat="blurb in blurbs">
+    <div class="blurb-message">{{ blurb.message }}</div>
+    <div class="blurb-date">{{ blurb.created_at | date:'medium' }}</div>
+    <a href="/blurbs/{{ blurb._id }}/comments">Comments ({{ blurb.num_comments || 0}})</a>
+  </li>
+</ul>

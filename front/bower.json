@@ -1,0 +1,7 @@
+{
+  "name": "bigboard",
+  "private": true,
+  "dependencies": {
+    "angular-route": "~1.2.14"
+  }
+}

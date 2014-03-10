@@ -1,0 +1,20 @@
+<h1>Blurb</h1>
+<div class="blurb">
+  <div class="message">{{ blurb.message }}</div>
+  <div class="date">{{ blurb.created_at | date:'medium' }}</div>
+</div>
+
+<h1>Add a comment…</h1>
+<textarea class="new-comment"
+  ng-model="message"
+  placeholder="Write anything… Max 140 characters."
+></textarea>
+<button ng-click="submit()">submit</button>
+
+<ul class="message-list">
+  <li ng-repeat="comment in comments" class="comment">
+    <div class="message">{{ comment.message }}</div>
+    <div class="date">{{ comment.created_at | date:'medium' }}</div>
+  </li>
+</ul>
+

@@ -1,0 +1,10 @@
+{
+  "name": "bigboard",
+  "version": "0.0.1",
+  "dependencies": {
+    "synth": "~0.4.0",
+    "promised-mongo": "~0.9.8",
+    "bluebird": "~1.1.0"
+  },
+  "devDependencies": {}
+}
