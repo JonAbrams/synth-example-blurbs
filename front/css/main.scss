@@ -1,0 +1,46 @@
+textarea.new-blurb {
+  display: inline-block;
+  height: 74px;
+  resize: none;
+}
+
+.too-many-chars {
+  color: red;
+}
+
+.blurb {
+  .date {
+    font-size: 0.8em;
+  }
+}
+
+.blurb-row {
+  margin-top: 20px;
+}
+
+.blurb-list {
+  padding-left: 0;
+
+  .comment-row & {
+    margin-top: 25px;
+  }
+
+  .blurb {
+    list-style: none;
+    margin-bottom: 10px;
+
+    .blurb-message {
+
+    }
+
+    .blurb-date {
+      font-size: 0.8em;
+      color: rgb(163, 163, 163);
+    }
+
+    a {
+
+    }
+  }
+}
+

@@ -2,6 +2,7 @@
   "name": "bigboard",
   "private": true,
   "dependencies": {
-    "angular-route": "~1.2.14"
+    "angular-route": "~1.2.14",
+    "bootstrap": "~3.1.1"
   }
 }

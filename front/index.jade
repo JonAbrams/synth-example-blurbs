@@ -15,9 +15,13 @@ html
     for jsFile in jsFiles
       script(src=jsFile)
   body(ng-app="blurbs")
-    h1= appName
+    nav.navbar.navbar-default
+      .container
+        .navbar-header
+          a.navbar-brand(ng-href="/blurbs") Blurbs
 
-    ng-view
+    .container
+      ng-view
 
     if preloadHTML
       script(type="text/ng-template" id="#{preloadHTMLPath}")

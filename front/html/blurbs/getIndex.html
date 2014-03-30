@@ -1,14 +1,36 @@
-<h1>Be heard, add a blurb…</h1>
-<textarea class="new-blurb"
-  ng-model="message"
-  placeholder="Write anything… Max 140 characters."
-></textarea>
-<button ng-click="submit()">submit</button>
+<div class="row">
+  <div class="col-md-6">
+    <h2>Be heard, add a blurb…</h2>
+    <form ng-submit="submit()">
+      <textarea
+        class="form-control new-blurb"
+        rows="3"
+        ng-model="message"
+        placeholder="Write anything, and share it anonymously… Max 140 characters."
+      ></textarea>
+      <span
+        class="characters-remaining"
+        ng-class="{'too-many-chars': message.length > 140}"
+      >
+        {{ 140 - message.length }}
+      </span>
+      <br>
+      <button class="btn btn-default" type="submit">submit</button>
+    </form>
+  </div>
+</div>
 
-<ul class="blurb-list">
-  <li ng-repeat="blurb in blurbs">
-    <div class="blurb-message">{{ blurb.message }}</div>
-    <div class="blurb-date">{{ blurb.created_at | date:'medium' }}</div>
-    <a href="/blurbs/{{ blurb._id }}/comments">Comments ({{ blurb.num_comments || 0}})</a>
-  </li>
-</ul>
+<div class="row blurb-row">
+  <div class="col-md-4">
+    <h4>What people are saying:</h4>
+    <ul class="blurb-list">
+      <li class="blurb" ng-repeat="blurb in blurbs">
+        <div class="blurb-message">{{ blurb.message }}</div>
+        <div class="blurb-date">{{ blurb.created_at | date:'medium' }}</div>
+        <a href="/blurbs/{{ blurb._id }}/comments">
+          Comments ({{ blurb.num_comments || 0}})
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
