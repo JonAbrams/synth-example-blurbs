@@ -3,6 +3,8 @@ synth-example-blurbs
 
 This is an example of a simple web app built on to of [synth](/JonAbrams/synth).
 
+You can interact with a live demo version [here](http://blurbs.synthjs.com/blurbs).
+
 It shows how using a promise supporting MongoDB client driver and Angularjs can be used to make a super simple twitter-like clone.
 
 To run this app your self install node.js then:
