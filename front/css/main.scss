@@ -4,8 +4,21 @@ textarea.new-blurb {
   resize: none;
 }
 
-.too-many-chars {
-  color: red;
+.blurb-input {
+  position: relative;
+
+  .characters-remaining {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: rgb(216, 216, 216);
+    border-radius: 4px;
+    padding: 2px 5px;
+
+    &.too-many-chars {
+      color: red;
+    }
+  }
 }
 
 .blurb {

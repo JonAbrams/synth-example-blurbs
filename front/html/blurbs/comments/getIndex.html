@@ -11,18 +11,18 @@
   <div class="col-md-4 comment-row">
     <h4>Add a comment…</h4>
     <form ng-submit="submit()">
-      <textarea class="form-control new-blurb"
-        rows="3"
-        ng-model="message"
-        placeholder="Max 140 characters."
-      ></textarea>
-      <span
-        class="characters-remaining"
-        ng-class="{'too-many-chars': message.length > 140}"
-      >
-        {{ 140 - message.length }}
-      </span>
-      <br>
+      <div class="blurb-input">
+        <textarea class="form-control new-blurb"
+          rows="3"
+          ng-model="message"
+        ></textarea>
+        <div
+          class="characters-remaining"
+          ng-class="{'too-many-chars': message.length > 140}"
+        >
+          {{ 140 - message.length }}
+        </div>
+      </div>
       <button class="btn btn-default" type="submit">submit</button>
     </form>
 

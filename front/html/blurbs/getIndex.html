@@ -2,19 +2,20 @@
   <div class="col-md-6">
     <h2>Be heard, add a blurb…</h2>
     <form ng-submit="submit()">
-      <textarea
-        class="form-control new-blurb"
-        rows="3"
-        ng-model="message"
-        placeholder="Write anything, and share it anonymously… Max 140 characters."
-      ></textarea>
-      <span
-        class="characters-remaining"
-        ng-class="{'too-many-chars': message.length > 140}"
-      >
-        {{ 140 - message.length }}
-      </span>
-      <br>
+      <div class="blurb-input">
+        <textarea
+          class="form-control new-blurb"
+          rows="3"
+          ng-model="message"
+          placeholder="Write anything, and share it anonymously…"
+        ></textarea>
+        <div
+          class="characters-remaining"
+          ng-class="{'too-many-chars': message.length > 140}"
+        >
+          {{ 140 - message.length }}
+        </div>
+      </div>
       <button class="btn btn-default" type="submit">submit</button>
     </form>
   </div>

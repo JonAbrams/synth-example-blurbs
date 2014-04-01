@@ -12,6 +12,6 @@ exports.getIndex = function (req, res) {
       }
     })
     .sort({ created_at: -1 })         /* Sort by newest, descending */
-    .limit(30)                        /* only return 30 */
+    .limit(5)                         /* only return 5 */
     .toArray();                       /* Execute and return promise */
 };
