@@ -1,7 +1,7 @@
 synth-example-blurbs
 ====================
 
-This is an example of a simple web app built on to of [synth](/JonAbrams/synth).
+This is an example of a simple web app built on to of [synth](https://github.com/JonAbrams/synth).
 
 You can interact with a live demo version [here](http://blurbs.synthjs.com/blurbs).
 
