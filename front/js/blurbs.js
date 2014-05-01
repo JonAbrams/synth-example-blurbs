@@ -4,13 +4,13 @@ angular.module('blurbs', ['ngRoute'])
     templateUrl: '/html/blurbs/getIndex.html',
     controller: 'blurbsCtrl',
     resolve: {
-      data: 'dataLoader'
+      data: function (dataLoader) { return dataLoader(); }
     }
   }).when('/blurbs/:blurbsId/comments', {
     templateUrl: '/html/blurbs/comments/getIndex.html',
     controller: 'commentsCtrl',
     resolve: {
-      data: 'dataLoader'
+      data: function (dataLoader) { return dataLoader(); }
     }
   }).otherwise({
     redirectTo: '/blurbs'
@@ -19,15 +19,17 @@ angular.module('blurbs', ['ngRoute'])
   $locationProvider.html5Mode(true);
 })
 .service('dataLoader', function ($location, $http) {
-  if (preloadedData) {
-    var data = preloadedData;
-    preloadedData = null;
-    return data;
-  } else {
-    return $http.get( '/api' + $location.path() ).then(function (res) {
-      return res.data;
-    });
-  }
+  return function () {
+    if (preloadedData) {
+      var data = preloadedData;
+      preloadedData = null;
+      return data;
+    } else {
+      return $http.get( '/api' + $location.path() ).then(function (res) {
+        return res.data;
+      });
+    }
+  };
 })
 .controller('blurbsCtrl', function ($scope, $http, data) {
   $scope.blurbs = data;
@@ -55,6 +57,9 @@ angular.module('blurbs', ['ngRoute'])
   };
 })
 .controller('commentsCtrl', function ($scope, $http, $routeParams, data) {
+  var blurbsId = $routeParams.blurbsId;
+  var url = '/api/blurbs/' + blurbsId + '/comments';
+
   $scope.blurb = data.blurb;
   $scope.comments = data.comments;
 
