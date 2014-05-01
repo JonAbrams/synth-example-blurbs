@@ -2,59 +2,67 @@ angular.module('blurbs', ['ngRoute'])
 .config(function ($routeProvider, $locationProvider) {
   $routeProvider.when('/blurbs', {
     templateUrl: '/html/blurbs/getIndex.html',
-    controller: 'blurbsCtrl'
+    controller: 'blurbsCtrl',
+    resolve: {
+      data: 'dataLoader'
+    }
   }).when('/blurbs/:blurbsId/comments', {
     templateUrl: '/html/blurbs/comments/getIndex.html',
-    controller: 'commentsCtrl'
+    controller: 'commentsCtrl',
+    resolve: {
+      data: 'dataLoader'
+    }
   }).otherwise({
     redirectTo: '/blurbs'
   });
 
   $locationProvider.html5Mode(true);
 })
-.controller('blurbsCtrl', function ($scope, $http) {
+.service('dataLoader', function ($location, $http) {
   if (preloadedData) {
-    console.log("Using preloaded data");
-    $scope.blurbs = preloadedData;
+    var data = preloadedData;
     preloadedData = null;
+    return data;
   } else {
-    console.log("Preloaded data not found, fetching from API");
-    $http.get('/api/blurbs').then(function (res) {
-      $scope.blurbs = res.data;
+    return $http.get( '/api' + $location.path() ).then(function (res) {
+      return res.data;
     });
   }
+})
+.controller('blurbsCtrl', function ($scope, $http, data) {
+  $scope.blurbs = data;
 
   $scope.submit = function () {
     if (!$scope.message) return;
-    $http.post('/api/blurbs', { message: $scope.message }).then(function (res) {
+    $http.post('/api/blurbs', { message: $scope.message })
+    .success(function (data) {
       if (!$scope.blurbs) return;
-      $scope.blurbs.unshift(res.data[0]);
+      $scope.blurbs.unshift(data[0]);
     });
     $scope.message = "";
   };
-})
-.controller('commentsCtrl', function ($scope, $http, $routeParams) {
-  var blurbsId = $routeParams.blurbsId;
-  var url = '/api/blurbs/' + blurbsId + '/comments';
 
-  if (preloadedData) {
-    console.log("Using preloaded data");
-    $scope.blurb = preloadedData.blurb;
-    $scope.comments = preloadedData.comments;
-    preloadedData = null;
-  } else {
-    console.log("Preloaded data not found, fetching from API");
-    $http.get(url).then(function (res) {
-      $scope.blurb = res.data.blurb;
-      $scope.comments = res.data.comments;
+  $scope.loadMore = function () {
+    var latestBlurb = $scope.blurbs[$scope.blurbs.length - 1];
+    $scope.loadingMore = true;
+
+    $http.get('/api/blurbs?toDate=' + latestBlurb.created_at)
+    .success(function (data) {
+      $scope.loadingMore = false;
+      $scope.noMore = data.length < 5;
+      $scope.blurbs = $scope.blurbs.concat(data);
     });
-  }
+  };
+})
+.controller('commentsCtrl', function ($scope, $http, $routeParams, data) {
+  $scope.blurb = data.blurb;
+  $scope.comments = data.comments;
 
   $scope.submit = function () {
     if (!$scope.message) return;
-    $http.post(url, { message: $scope.message }).then(function (res) {
+    $http.post(url, { message: $scope.message }).success(function (data) {
       if (!$scope.comments) return;
-      $scope.comments.unshift(res.data[0]);
+      $scope.comments.unshift(data[0]);
     });
     $scope.message = "";
   };

@@ -33,5 +33,9 @@
         </a>
       </li>
     </ul>
+    <button class="btn btn-default" ng-click="loadMore()" ng-hide="noMore">
+      Load More
+      <span class="glyphicon glyphicon-refresh spinner" ng-show="loadingMore"></span>
+    </button>
   </div>
 </div>

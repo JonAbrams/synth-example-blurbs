@@ -1,8 +1,8 @@
 // Fetch some blurbs
 
 exports.getIndex = function (req, res) {
-  var toDate = req.params.toDate || new Date().getTime();
-  var fromDate = req.params.fromDate || null;
+  var toDate = req.query.toDate || new Date();
+  var fromDate = req.query.fromDate || null;
 
   return req.db.collection('blurbs')  /* On the 'blurbs' collection */
     .find({
