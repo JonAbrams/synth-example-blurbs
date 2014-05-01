@@ -4,13 +4,13 @@ angular.module('blurbs', ['ngRoute'])
     templateUrl: '/html/blurbs/getIndex.html',
     controller: 'blurbsCtrl',
     resolve: {
-      data: function (dataLoader) { return dataLoader(); }
+      data: ['dataLoader', function (dataLoader) { return dataLoader(); }]
     }
   }).when('/blurbs/:blurbsId/comments', {
     templateUrl: '/html/blurbs/comments/getIndex.html',
     controller: 'commentsCtrl',
     resolve: {
-      data: function (dataLoader) { return dataLoader(); }
+      data: ['dataLoader', function (dataLoader) { return dataLoader(); }]
     }
   }).otherwise({
     redirectTo: '/blurbs'
