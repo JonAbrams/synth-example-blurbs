@@ -9,4 +9,6 @@ synth.app.use(function (req, res, next) {
   next();
 });
 
-module.exports = synth();
+var app = module.exports = synth();
+
+app.set('view engine', 'ejs');
