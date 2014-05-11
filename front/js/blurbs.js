@@ -1,16 +1,21 @@
+var dataLoaderRunner = [
+  'dataLoader',
+  function (dataLoader) { return dataLoader(); }
+];
+
 angular.module('blurbs', ['ngRoute'])
 .config(function ($routeProvider, $locationProvider) {
   $routeProvider.when('/blurbs', {
     templateUrl: '/html/blurbs/getIndex.html',
     controller: 'blurbsCtrl',
     resolve: {
-      data: ['dataLoader', function (dataLoader) { return dataLoader(); }]
+      data: dataLoaderRunner
     }
   }).when('/blurbs/:blurbsId/comments', {
     templateUrl: '/html/blurbs/comments/getIndex.html',
     controller: 'commentsCtrl',
     resolve: {
-      data: ['dataLoader', function (dataLoader) { return dataLoader(); }]
+      data: dataLoaderRunner
     }
   }).otherwise({
     redirectTo: '/blurbs'
