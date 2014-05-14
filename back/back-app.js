@@ -11,6 +11,8 @@ synth.app.use(function (req, res, next) {
 
 var app = module.exports = synth();
 
+if (!process.env.HEROKU) return;
+
 var port = Number(process.env.PORT || 5000);
 
 app.listen(port, function () {
