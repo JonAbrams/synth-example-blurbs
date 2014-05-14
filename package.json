@@ -6,5 +6,8 @@
     "promised-mongo": "~0.9.8",
     "bluebird": "~1.1.0"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "engines": {
+    "node": "0.10.x"
+  }
 }

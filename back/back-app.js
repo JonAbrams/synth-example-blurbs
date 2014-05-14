@@ -9,4 +9,10 @@ synth.app.use(function (req, res, next) {
   next();
 });
 
-module.exports = synth();
+var app = module.exports = synth();
+
+var port = Number(process.env.PORT || 5000);
+
+app.listen(port, function () {
+  console.log('Listening on port ' + port);
+});
