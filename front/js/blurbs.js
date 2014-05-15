@@ -44,7 +44,7 @@ angular.module('blurbs', ['ngRoute'])
     $http.post('/api/blurbs', { message: $scope.message })
     .success(function (data) {
       if (!$scope.blurbs) return;
-      $scope.blurbs.unshift(data[0]);
+      $scope.blurbs.unshift(data);
     });
     $scope.message = "";
   };
@@ -72,7 +72,7 @@ angular.module('blurbs', ['ngRoute'])
     if (!$scope.message) return;
     $http.post(url, { message: $scope.message }).success(function (data) {
       if (!$scope.comments) return;
-      $scope.comments.unshift(data[0]);
+      $scope.comments.unshift(data);
     });
     $scope.message = "";
   };

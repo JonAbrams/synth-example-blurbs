@@ -2,9 +2,9 @@
   "name": "blurbs",
   "version": "0.0.2",
   "dependencies": {
-    "synth": "~0.4.15",
-    "promised-mongo": "~0.9.8",
-    "bluebird": "~1.1.0"
+    "bluebird": "~1.1.0",
+    "rethinkdbdash": "^1.12.8",
+    "synth": "~0.4.15"
   },
   "devDependencies": {}
 }

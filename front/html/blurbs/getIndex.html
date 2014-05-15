@@ -28,7 +28,7 @@
       <li class="blurb" ng-repeat="blurb in blurbs">
         <div class="blurb-message">{{ blurb.message }}</div>
         <div class="blurb-date">{{ blurb.created_at | date:'medium' }}</div>
-        <a href="/blurbs/{{ blurb._id }}/comments">
+        <a href="/blurbs/{{ blurb.id }}/comments">
           Comments ({{ blurb.num_comments || 0}})
         </a>
       </li>
