@@ -32,12 +32,8 @@ exports.getIndex = function (req, res) {
       created_at: -1
     }).toArray();
 
-  /* For more about Promise.all and spread: http://bit.ly/1naIqY1 */
-  /* Basically, it turns two promises into one */
-  return Promise.all([blurb, comments]).spread(function (blurb, comments) {
-    return {
-        blurb: blurb,
-        comments: comments
-    };
+  return Promise.props({
+    blurb: blurb,
+    comments: comments
   });
 };
