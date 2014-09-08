@@ -1,10 +1,10 @@
 // Fetch some blurbs
 
-exports.getIndex = function (req, res) {
-  var toDate = req.query.toDate || new Date();
-  var fromDate = req.query.fromDate || null;
+exports.getIndex = function (db, params) {
+  var toDate = params.toDate || new Date();
+  var fromDate = params.fromDate || null;
 
-  return req.db.collection('blurbs')  /* On the 'blurbs' collection */
+  return db.collection('blurbs')  /* On the 'blurbs' collection */
     .find({
       created_at: {
         $lt: new Date(toDate),        /* Get blurbs older than toDate */
