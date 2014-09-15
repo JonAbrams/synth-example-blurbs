@@ -15,6 +15,9 @@
           <div class="help-block" ng-show="signupForm.email.$error.email">
             Please enter an email address
           </div>
+          <div class="help-block" ng-show="signupForm.email.$error.taken">
+            That email has been taken, try another one?
+          </div>
         </div>
         <div class="form-group" ng-class="showError(signupForm.username)">
           <label class="control-label">Username</label>
@@ -23,7 +26,7 @@
             A username is required
           </div>
           <div class="help-block" ng-show="signupForm.username.$error.taken">
-            A username is required
+            That username has been taken, try another one
           </div>
         </div>
         <div class="form-group" ng-class="showError(signupForm.password)">

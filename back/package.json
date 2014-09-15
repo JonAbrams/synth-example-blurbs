@@ -2,6 +2,7 @@
   "name": "blurbs",
   "version": "0.0.2",
   "dependencies": {
+    "bcrypt": "^0.8.0",
     "bluebird": "~1.1.0",
     "body-parser": "^1.8.0",
     "lodash": "^2.4.1",

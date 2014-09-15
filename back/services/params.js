@@ -1,6 +1,9 @@
-var _ = require('lodash');
-var Promise = require('bluebird');
-var bodyParser = Promise.promisify(require('body-parser').json());
+var _ = require('lodash'),
+    Promise = require('bluebird'),
+    bodyParser = Promise.promisify(require('body-parser').json()),
+    bcrypt = require('bcrypt'),
+    hash = Promise.promisify(bcrypt.hash),
+    compare = Promise.promisify(bcrypt.compare);
 
 exports.params = function (req, res) {
   // Combines the three sources of parameters into one, and return them in one object
@@ -8,4 +11,14 @@ exports.params = function (req, res) {
   return bodyParser(req, res).then(function () {
     return _.merge({}, req.query, req.params, req.body);
   });
+};
+
+exports.hashedPass = function (params) {
+  if (params.password) {
+    return hash(params.password, 10);
+  }
+};
+
+exports.comparePass = function () {
+  return compare;
 };

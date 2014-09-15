@@ -94,17 +94,23 @@ angular.module('blurbs', ['ngRoute', 'mgcrea.ngStrap', 'ngAnimate'])
   });
 
   $scope.submittable = function () {
-    return this.signupForm.$valid && this.signupForm.$dirty
+    return !$scope.submitting && $scope.user && $scope.user.username &&
+      $scope.user.password && $scope.user.password == $scope.confirmPassword;
   };
 
   $scope.signup = function () {
+    $scope.submitting = true;
     $http.post('/api/users', this.user)
     .success(function (user) {
       $scope.$root.user = user;
       $scope.$hide();
     })
     .error(function (err) {
-      $scope.signupForm.username.$error.taken = err.taken;
+      $scope.signupForm.username.$setValidity('taken', !err.usernameTaken);
+      $scope.signupForm.email.$setValidity('taken', !err.emailTaken);
+    })
+    .finally(function () {
+      $scope.submitting = false;
     });
   };
 });
