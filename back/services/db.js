@@ -9,3 +9,7 @@ exports.db = function () {
 exports.tweets = function (db) {
   return db.collection('tweets');
 };
+
+exports.users = function (db) {
+  return db.collection('users');
+};

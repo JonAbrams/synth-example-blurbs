@@ -94,15 +94,19 @@ angular.module('blurbs', ['ngRoute', 'mgcrea.ngStrap', 'ngAnimate'])
   });
 
   $scope.submittable = function () {
-    return !$scope.submitting && $scope.user && $scope.user.username &&
-      $scope.user.password && $scope.user.password == $scope.confirmPassword;
+    return !$scope.submitting &&
+      $scope.user &&
+      $scope.user.username &&
+      $scope.user.password &&
+      $scope.user.password == $scope.confirmPassword;
   };
 
   $scope.signup = function () {
     $scope.submitting = true;
     $http.post('/api/users', this.user)
-    .success(function (user) {
-      $scope.$root.user = user;
+    .success(function (result) {
+      debugger
+      $scope.$root.user = result.user;
       $scope.$hide();
     })
     .error(function (err) {
@@ -113,4 +117,27 @@ angular.module('blurbs', ['ngRoute', 'mgcrea.ngStrap', 'ngAnimate'])
       $scope.submitting = false;
     });
   };
-});
+})
+.controller('loginCtrl', function ($scope, $http) {
+  $scope.showError = function (model) {
+    return {
+      'has-error': model.$dirty && model.$invalid
+    };
+  };
+
+  $scope.login = function () {
+    $scope.submitting = true;
+    $http.post('/api/sessions', this.user)
+    .success(function (result) {
+      $scope.$root.user = result.user;
+      $scope.$hide();
+    })
+    .error(function (err) {
+      $scope.loginForm.username.$setValidity('notFound', !err.userNotFound);
+      $scope.loginForm.password.$setValidity('invalid', !err.invalidPassword);
+    })
+    .finally(function () {
+      $scope.submitting = false;
+    });
+  };
+})

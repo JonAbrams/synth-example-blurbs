@@ -1,4 +1,4 @@
-exports.post = function (tweets, params, hashedPass) {
+exports.post = function (users, params, hashedPass) {
   if (!params.email || !params.username || !params.password) {
     throw {
       statusCode: 422,
@@ -6,7 +6,7 @@ exports.post = function (tweets, params, hashedPass) {
     };
   }
 
-  return tweets.findOne({ email: params.email })
+  return users.findOne({ email: params.email })
     .then(function (user) {
       // The specified email has been taken if user was found :(
       if (user) {
@@ -16,7 +16,7 @@ exports.post = function (tweets, params, hashedPass) {
         };
       }
 
-      return tweets.findOne({ username: params.username });
+      return users.findOne({ username: params.username });
     })
     .then(function (user) {
       // The specified email has been taken if user was found :(
@@ -27,7 +27,7 @@ exports.post = function (tweets, params, hashedPass) {
         };
       }
 
-      return tweets.insert({
+      return users.insert({
         email: params.email,
         username: params.username,
         password: hashedPass
@@ -35,7 +35,9 @@ exports.post = function (tweets, params, hashedPass) {
     })
     .then(function (users) {
       return {
-        username: users[0].username
+        user: {
+          username: users[0].username
+        }
       };
     });
 };

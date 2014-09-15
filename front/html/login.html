@@ -1,38 +1,29 @@
 <div class="modal" tabindex="-1" role="dialog" ng-controller="loginCtrl">
-  <form ng-submit="submittable() && signup()" class="modal-dialog">
+  <form ng-submit="login()" class="modal-dialog" name="loginForm">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" ng-click="$hide()">&times;</button>
         <h4 class="modal-title">Login</h4>
       </div>
       <div class="modal-body">
-        <div class="form-group">
+        <div class="form-group" ng-class="showError(loginForm.username)">
           <label class="control-label">Username</label>
-          <input type="text" name="username" ng-model="username" class="form-control" required>
-          <div class="help-block" ng-show="signupForm.username.$dirty && signupForm.username.$error.required">
-            A username is required
-          </div>
-          <div class="help-block" ng-show="signupForm.username.$error.taken">
-            A username is required
+          <input type="text" name="username" ng-model="user.username" class="form-control" required>
+          <div class="help-block" ng-show="loginForm.username.$error.notFound">
+            User not found.
           </div>
         </div>
-        <div class="form-group" ng-class="showError(signupForm.password)">
+        <div class="form-group" ng-class="showError(loginForm.password)">
           <label class="control-label">Password</label>
-          <input type="password" name="password" ng-model="password" class="form-control" required ng-minlength="6">
-          <div class="help-block" ng-show="signupForm.$error.minlength">
-            Your password must be at least 6 characters
-          </div>
-        </div>
-        <div class="form-group" ng-class="showError(signupForm.confirmPassword)">
-          <label class="control-label">Confirm Password</label>
-          <input type="password" name="confirmPassword" ng-model="confirmPassword" class="form-control" required>
-          <div class="help-block" ng-show="signupForm.$error.match">
-            The passwords must match
+          <input type="password" name="password" ng-model="user.password" class="form-control" required>
+          <div class="help-block" ng-show="loginForm.password.$error.invalid">
+            Invalid password.
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <input type="submit" class="btn btn-primary" value="Sign Up" ng-disabled="!submittable()">
+        <input type="submit" class="btn btn-primary" value="Log In"
+         ng-disabled="!user.username || !user.password || submitting">
       </div>
     </div>
   </form>

@@ -24,6 +24,11 @@ html
             a.login-link(bs-modal="signupModal" data-template="/html/signup.html" data-animation="am-fade-and-slide-top") Sign Up
           li
             a.login-link(bs-modal="loginModal" data-template="/html/login.html") Log In
+        ul.nav.navbar-nav.navbar-right(ng-show="user")
+          li
+            a#username {{ user.username }}
+          li
+            a.login-link(ng-click="user = null") Log Out
 
     .container
       ng-view
