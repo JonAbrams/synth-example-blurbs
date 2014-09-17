@@ -1,8 +1,9 @@
 // Fetch some blurbs
 
-exports.getIndex = function (db, params) {
+exports.getIndex = function (db, params, user) {
   var toDate = params.toDate || new Date();
   var fromDate = params.fromDate || null;
+
 
   return db.collection('blurbs')  /* On the 'blurbs' collection */
     .find({
@@ -13,5 +14,13 @@ exports.getIndex = function (db, params) {
     })
     .sort({ created_at: -1 })         /* Sort by newest, descending */
     .limit(5)                         /* only return 5 */
-    .toArray();                       /* Execute and return promise */
+    .toArray()                        /* Execute and return promise */
+    .then(function (blurbs) {         /* Format API response */
+      return {
+        blurbs: blurbs,
+        user: {
+          username: user && user.username
+        }
+      };
+    });
 };

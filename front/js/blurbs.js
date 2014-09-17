@@ -37,11 +37,15 @@ angular.module('blurbs', ['ngRoute', 'mgcrea.ngStrap', 'ngAnimate'])
   };
 })
 .controller('blurbsCtrl', function ($scope, $http, data) {
-  $scope.blurbs = data;
+  $scope.blurbs = data.blurbs;
+  $scope.$root.user = data.user;
 
   $scope.submit = function () {
     if (!$scope.message) return;
-    $http.post('/api/blurbs', { message: $scope.message })
+    $http.post('/api/blurbs', {
+      message: $scope.message,
+      user: $scope.$root.user
+    })
     .success(function (data) {
       if (!$scope.blurbs) return;
       $scope.blurbs.unshift(data[0]);
@@ -67,6 +71,7 @@ angular.module('blurbs', ['ngRoute', 'mgcrea.ngStrap', 'ngAnimate'])
 
   $scope.blurb = data.blurb;
   $scope.comments = data.comments;
+  $scope.$root.user = data.user;
 
   $scope.submit = function () {
     if (!$scope.message) return;
@@ -105,7 +110,6 @@ angular.module('blurbs', ['ngRoute', 'mgcrea.ngStrap', 'ngAnimate'])
     $scope.submitting = true;
     $http.post('/api/users', this.user)
     .success(function (result) {
-      debugger
       $scope.$root.user = result.user;
       $scope.$hide();
     })

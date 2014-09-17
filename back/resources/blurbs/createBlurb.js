@@ -1,6 +1,7 @@
 /* Create a new blurb entry in the db */
 exports.post = function (params, db, user) {
   var message = params.message;
+
   if (typeof message !== 'string' || message.length === 0) {
     throw {
       statusCode: 422,
@@ -12,6 +13,6 @@ exports.post = function (params, db, user) {
     message: message.slice(0,140),
     created_at: new Date(),
     num_comments: 0,
-    user: user._id
+    user: user && user._id
   });
 };

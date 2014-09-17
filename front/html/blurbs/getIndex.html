@@ -16,7 +16,10 @@
           {{ 140 - message.length }}
         </div>
       </div>
-      <button class="btn btn-default" type="submit">submit</button>
+      <button class="btn btn-default" type="submit">
+        Post it
+        <span ng-show="user">as {{ user.username }}</span>
+      </button>
     </form>
   </div>
 </div>

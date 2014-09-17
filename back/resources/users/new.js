@@ -1,4 +1,6 @@
-exports.post = function (users, params, hashedPass) {
+var uuid = require('node-uuid');
+
+exports.post = function (users, params, hashedPass, db, res) {
   if (!params.email || !params.username || !params.password) {
     throw {
       statusCode: 422,
@@ -34,9 +36,22 @@ exports.post = function (users, params, hashedPass) {
       });
     })
     .then(function (users) {
+      var user = users[0];
+
+      var sessionPromise = db.collection('sessions')
+        .insert({
+          user_id: user._id,
+          token: uuid.v4()
+        });
+
+      return [sessionPromise, user];
+    }).spread(function (sessions, user) {
+      var session = sessions[0];
+      res.cookie('auth_token', session.token);
+
       return {
         user: {
-          username: users[0].username
+          username: user.username
         }
       };
     });

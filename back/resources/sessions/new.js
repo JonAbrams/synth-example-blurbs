@@ -1,6 +1,6 @@
 var uuid = require('node-uuid');
 
-exports.post = function (users, db, params, comparePass) {
+exports.post = function (users, db, params, comparePass, res) {
   if (!params.username || !params.password) {
     throw {
       statusCode: 422,
@@ -37,10 +37,12 @@ exports.post = function (users, db, params, comparePass) {
               user_id: user._id,
               token: uuid.v4()
             })
-            .then(function (session) {
+            .then(function (sessions) {
+              var session = sessions[0];
+              res.cookie('auth_token', session.token, { httpOnly: true });
+
               return {
-                user: user,
-                session: session
+                user: user
               };
             });
         });
