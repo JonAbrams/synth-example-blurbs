@@ -36,7 +36,7 @@ angular.module('blurbs', ['ngRoute', 'mgcrea.ngStrap', 'ngAnimate'])
     }
   };
 })
-.controller('blurbsCtrl', function ($scope, $http, data) {
+.controller('blurbsCtrl', function ($scope, data, $http) {
   $scope.blurbs = data.blurbs;
   $scope.$root.user = data.user;
 
@@ -145,3 +145,11 @@ angular.module('blurbs', ['ngRoute', 'mgcrea.ngStrap', 'ngAnimate'])
     });
   };
 })
+.controller('userCtrl', function ($scope, $http) {
+  $scope.logout = function () {
+    $http.delete('/api/sessions/token')
+    .success(function () {
+      $scope.$root.user = null;
+    });
+  };
+});

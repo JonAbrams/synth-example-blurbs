@@ -15,5 +15,5 @@ exports.user = function (db, cookies) {
 };
 
 exports.cookies = function (req) {
-  return cookieParser(req.headers.cookie);
+  return cookieParser(req.headers.cookie || "");
 };

@@ -1,6 +1,7 @@
 <div class="row">
   <div class="col-md-6 top-blurb">
     <div class="blurb well">
+      <h4 class="username">{{ blurb.username || "Anonymous" }} says…</h3>
       <h2 class="message">{{ blurb.message }}</h2>
       <a class="date" ng-href="/blurbs/{{ blurb._id }}/comments">{{ blurb.created_at | date:'medium' }}</a>
     </div>

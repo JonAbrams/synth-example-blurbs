@@ -29,6 +29,7 @@
     <h4>What people are saying:</h4>
     <ul class="blurb-list">
       <li class="blurb" ng-repeat="blurb in blurbs">
+        <div class="blurb-user">{{ blurb.username || "Anonymous" }} says…</div>
         <div class="blurb-message">{{ blurb.message }}</div>
         <div class="blurb-date">{{ blurb.created_at | date:'medium' }}</div>
         <a href="/blurbs/{{ blurb._id }}/comments">

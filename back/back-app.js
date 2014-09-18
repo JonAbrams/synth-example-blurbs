@@ -1,3 +1,5 @@
 var synth = require('synth');
 
-module.exports = synth();
+var app = synth();
+
+module.exports = app;

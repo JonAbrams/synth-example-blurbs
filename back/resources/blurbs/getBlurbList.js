@@ -18,8 +18,8 @@ exports.getIndex = function (db, params, user) {
     .then(function (blurbs) {         /* Format API response */
       return {
         blurbs: blurbs,
-        user: {
-          username: user && user.username
+        user: user && {
+          username: user.username
         }
       };
     });

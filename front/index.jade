@@ -28,7 +28,7 @@ html
           li
             a#username {{ user.username }}
           li
-            a.login-link(ng-click="user = null") Log Out
+            a.login-link(ng-controller="userCtrl", ng-click="logout()") Log Out
 
     .container
       ng-view

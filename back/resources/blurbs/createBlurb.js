@@ -1,5 +1,5 @@
 /* Create a new blurb entry in the db */
-exports.post = function (params, db, user) {
+exports.post = function (db, params, user) {
   var message = params.message;
 
   if (typeof message !== 'string' || message.length === 0) {
@@ -13,6 +13,6 @@ exports.post = function (params, db, user) {
     message: message.slice(0,140),
     created_at: new Date(),
     num_comments: 0,
-    user: user && user._id
+    username: user && user.username
   });
 };
