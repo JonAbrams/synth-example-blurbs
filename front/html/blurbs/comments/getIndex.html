@@ -29,6 +29,7 @@
 
     <ul class="blurb-list">
       <li ng-repeat="comment in comments" class="blurb">
+        <div class="blurb-user">{{ comment.username || "Anonymous" }} says…</div>
         <div class="blurb-message">{{ comment.message }}</div>
         <div class="blurb-date">{{ comment.created_at | date:'medium' }}</div>
       </li>

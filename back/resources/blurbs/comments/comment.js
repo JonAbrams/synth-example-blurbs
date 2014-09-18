@@ -2,7 +2,7 @@
 var Promise = require('bluebird');
 
 /* Store a new comment */
-exports.post = function (params, db) {
+exports.post = function (params, db, user) {
   var blurbsId = params.blurbsId;
   var message = params.message;
 
@@ -21,7 +21,8 @@ exports.post = function (params, db) {
   return db.collection('comments').insert({
     blurbsId: blurbsId,
     message: message.slice(0,140),
-    created_at: new Date()
+    created_at: new Date(),
+    username: user && user.username
   });
 };
 
@@ -41,6 +42,8 @@ exports.getIndex = function (user, db, params) {
   return Promise.props({
     blurb: blurb,
     comments: comments,
-    user: user
+    user: user && {
+      username: user.username
+    }
   });
 };
