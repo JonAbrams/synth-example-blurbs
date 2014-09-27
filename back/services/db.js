@@ -6,8 +6,8 @@ exports.db = function () {
   return db;
 };
 
-exports.tweets = function (db) {
-  return db.collection('tweets');
+exports.blurbs = function (db) {
+  return db.collection('blurbs');
 };
 
 exports.users = function (db) {

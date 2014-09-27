@@ -1,5 +1,5 @@
 {
-  "name": "bigboard",
+  "name": "blurbs",
   "private": true,
   "dependencies": {
     "angular-route": "~1.2.23",

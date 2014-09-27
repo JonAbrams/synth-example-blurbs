@@ -17,3 +17,11 @@ exports.user = function (db, cookies) {
 exports.cookies = function (req) {
   return cookieParser(req.headers.cookie || "");
 };
+
+exports.requireUser = function (user) {
+  if (!user) throw {
+    statusCode: 404,
+    message: "The specified user does not exist"
+  };
+  return user;
+};

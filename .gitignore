@@ -1,2 +1,3 @@
-back/node_modules
-front/bower_components
+node_modules
+bower_components
+front/tmp

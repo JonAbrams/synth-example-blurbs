@@ -11,5 +11,6 @@
     "promised-mongo": "~0.9.8",
     "synth": "^0.6"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "start": "./node_modules/.bin/synth server"
 }
