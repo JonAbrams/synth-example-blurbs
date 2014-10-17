@@ -3,7 +3,7 @@ var dataLoaderRunner = [
   function (dataLoader) { return dataLoader(); }
 ];
 
-angular.module('blurbs', ['ngRoute', 'mgcrea.ngStrap', 'ngAnimate'])
+angular.module('blurbs', ['ngRoute', 'mgcrea.ngStrap'])
 .config(function ($routeProvider, $locationProvider) {
   $routeProvider.when('/blurbs', {
     templateUrl: '/html/blurbs/getIndex.html',
@@ -21,19 +21,16 @@ angular.module('blurbs', ['ngRoute', 'mgcrea.ngStrap', 'ngAnimate'])
     redirectTo: '/blurbs'
   });
 
-  $locationProvider.html5Mode(true);
+  $locationProvider.html5Mode({
+    enabled: true,
+    requireBase: false
+  });
 })
 .service('dataLoader', function ($location, $http) {
   return function () {
-    if (preloadedData) {
-      var data = preloadedData;
-      preloadedData = null;
-      return data;
-    } else {
-      return $http.get( '/api' + $location.path() ).then(function (res) {
-        return res.data;
-      });
-    }
+    return $http.get( '/api' + $location.path() ).then(function (res) {
+      return res.data;
+    });
   };
 })
 .controller('blurbsCtrl', function ($scope, data, $http) {
