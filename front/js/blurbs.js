@@ -1,22 +1,11 @@
-var dataLoaderRunner = [
-  'dataLoader',
-  function (dataLoader) { return dataLoader(); }
-];
-
 angular.module('blurbs', ['ngRoute', 'mgcrea.ngStrap'])
 .config(function ($routeProvider, $locationProvider) {
   $routeProvider.when('/blurbs', {
     templateUrl: '/html/blurbs/getIndex.html',
-    controller: 'blurbsCtrl',
-    resolve: {
-      data: dataLoaderRunner
-    }
+    controller: 'blurbsCtrl'
   }).when('/blurbs/:blurbsId/comments', {
     templateUrl: '/html/blurbs/comments/getIndex.html',
-    controller: 'commentsCtrl',
-    resolve: {
-      data: dataLoaderRunner
-    }
+    controller: 'commentsCtrl'
   }).otherwise({
     redirectTo: '/blurbs'
   });
@@ -27,15 +16,28 @@ angular.module('blurbs', ['ngRoute', 'mgcrea.ngStrap'])
   });
 })
 .service('dataLoader', function ($location, $http) {
-  return function () {
-    return $http.get( '/api' + $location.path() ).then(function (res) {
+  return function (params) {
+    params = params || {};
+    var url = '/api' + $location.path();
+    var paramArr = [];
+    Object.keys(params).forEach(function (key) {
+      paramArr.push(
+        encodeURIComponent(key) + '=' + encodeURIComponent(params[key])
+      );
+    });
+    if (paramArr.length > 0) {
+      url += '?' + paramArr.join('&');
+    }
+    return $http.get(url).then(function (res) {
       return res.data;
     });
   };
 })
-.controller('blurbsCtrl', function ($scope, data, $http) {
-  $scope.blurbs = data.blurbs;
-  $scope.$root.user = data.user;
+.controller('blurbsCtrl', function ($scope, dataLoader, $http) {
+  dataLoader().then(function (data) {
+    $scope.blurbs = data.blurbs;
+    $scope.$root.user = data.user;
+  });
 
   $scope.submit = function () {
     if (!$scope.message) return;
@@ -54,21 +56,23 @@ angular.module('blurbs', ['ngRoute', 'mgcrea.ngStrap'])
     var latestBlurb = $scope.blurbs[$scope.blurbs.length - 1];
     $scope.loadingMore = true;
 
-    $http.get('/api/blurbs?toDate=' + latestBlurb.created_at)
-    .success(function (data) {
+    dataLoader({ toDate: latestBlurb.created_at }).then(function (data) {
+      var newBlurbs = data.blurbs;
       $scope.loadingMore = false;
-      $scope.noMore = data.length < 5;
-      $scope.blurbs = $scope.blurbs.concat(data);
+      $scope.noMore = newBlurbs.length < 5;
+      $scope.blurbs = $scope.blurbs.concat(newBlurbs);
     });
   };
 })
-.controller('commentsCtrl', function ($scope, $http, $routeParams, data) {
+.controller('commentsCtrl', function ($scope, $http, $routeParams, dataLoader) {
   var blurbsId = $routeParams.blurbsId;
   var url = '/api/blurbs/' + blurbsId + '/comments';
 
-  $scope.blurb = data.blurb;
-  $scope.comments = data.comments;
-  $scope.$root.user = data.user;
+  dataLoader().then(function () {
+    $scope.blurb = data.blurb;
+    $scope.comments = data.comments;
+    $scope.$root.user = data.user;
+  })
 
   $scope.submit = function () {
     if (!$scope.message) return;
