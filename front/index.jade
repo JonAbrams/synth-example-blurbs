@@ -12,8 +12,7 @@ html
     // Preloaded Data
     script.
       var apiPath = '/api' + location.pathname;
-      var apiPrefetchData = {};
-      apiPrefetchData[apiPath] = !{data};
+      var apiPrefetchData = !{apiPrefetchData};
     for jsFile in jsFiles
       script(src=jsFile)
   body(ng-app="blurbs")
@@ -34,7 +33,3 @@ html
 
     .container
       ng-view
-
-    if preloadHTML
-      script(type="text/ng-template" id="#{preloadHTMLPath}")
-        != preloadHTML
