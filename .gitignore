@@ -1,3 +1,4 @@
 node_modules
 front/bower_components
 public
+front/dist

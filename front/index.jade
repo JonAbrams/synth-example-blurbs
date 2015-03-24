@@ -6,15 +6,13 @@ html
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
     title= appName
 
-    for cssFile in cssFiles
-      link(rel="stylesheet", href=cssFile)
+    link(rel="stylesheet", href="/index.css")
 
     // Preloaded Data
     script.
       var apiPath = '/api' + location.pathname;
       var apiPrefetchData = !{apiPrefetchData};
-    for jsFile in jsFiles
-      script(src=jsFile)
+    script(src="/index.js")
   body(ng-app="blurbs")
     nav.navbar.navbar-default
       .container

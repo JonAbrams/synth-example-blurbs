@@ -1,0 +1,21 @@
+.row
+  .col-md-6.top-blurb
+    .blurb.well
+      h4.username
+        | {{ blurb.username || &quot;Anonymous&quot; }} says&mldr;
+        h2.message {{ blurb.message }}
+        a.date(ng-href='/blurbs/{{ blurb._id }}/comments') {{ blurb.created_at | date:&apos;medium&apos; }}
+.row
+  .col-md-4.comment-row
+    h4 Add a comment&mldr;
+    form(ng-submit='submit()')
+      .blurb-input
+        textarea.form-control.new-blurb(rows='3', ng-model='message')
+        .characters-remaining(ng-class="{'too-many-chars': message.length > 140}")
+          | {{ 140 - message.length }}
+      button.btn.btn-default(type='submit') submit
+    ul.blurb-list
+      li.blurb(ng-repeat='comment in comments')
+        .blurb-user {{ comment.username || &quot;Anonymous&quot; }} says&mldr;
+        .blurb-message {{ comment.message }}
+        .blurb-date {{ comment.created_at | date:&apos;medium&apos; }}
